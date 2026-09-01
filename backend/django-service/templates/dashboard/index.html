@@ -1,0 +1,338 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Manyatta Kisumu Diocese Youth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --blue:#123B6D; --blue-deep:#0B2747; --blue-light:#2E6FB0;
+    --pitch-orange:#E85D04; --orange:#FFA733; --green:#1B6B45; --green-deep:#0F4A30;
+    --ink:#16202B; --ink-soft:#5B6B80; --paper:#F5F3EC; --surface:#FFFFFF; --line:#E7E1D3;
+    --sidebar-w:248px; --radius:14px;
+    --font-display:'Sora',sans-serif; --font-body:'Inter',sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font-body);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display);color:var(--blue-deep);margin:0;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
+    background:var(--blue-deep); color:#fff; display:flex; flex-direction:column;
+    padding:26px 18px; z-index:50; transition:transform .25s ease;
+  }
+  .sidebar-brand{display:flex; align-items:center; gap:10px; margin-bottom:34px; padding:0 6px;}
+  .sidebar-brand svg{width:38px; height:38px; flex:none;}
+  .sidebar-brand div{font-family:var(--font-display); font-weight:700; font-size:.95rem; line-height:1.25;}
+  .sidebar-brand small{display:block; font-family:var(--font-body); font-weight:400; font-size:.66rem; color:#9FB3CC; letter-spacing:.05em;}
+  .nav-group-label{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:#7C93B3; font-weight:700; margin:18px 10px 8px;}
+  .sidebar nav a{
+    display:flex; align-items:center; gap:11px; padding:11px 12px; border-radius:10px;
+    color:#D7E2F1; font-size:.92rem; font-weight:500; margin-bottom:2px; transition:background .15s ease,color .15s ease;
+  }
+  .sidebar nav a svg{width:18px; height:18px; flex:none; opacity:.85;}
+  .sidebar nav a:hover{background:rgba(255,255,255,.08); color:#fff;}
+  .sidebar nav a.active{background:var(--pitch-orange); color:#fff;}
+  .sidebar-foot{margin-top:auto; padding-top:16px; border-top:1px solid rgba(255,255,255,.1);}
+  .sidebar-user{display:flex; align-items:center; gap:10px; padding:8px 6px;}
+  .sidebar-user .avatar{
+    width:34px; height:34px; border-radius:50%; background:var(--green);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:.85rem;
+  }
+  .sidebar-user .who{font-size:.85rem; line-height:1.3;}
+  .sidebar-user .who small{color:#9FB3CC; font-size:.72rem;}
+  .logout-link{display:flex; align-items:center; gap:11px; padding:11px 12px; border-radius:10px; color:#FFC9A8; font-size:.88rem; margin-top:6px;}
+  .logout-link:hover{background:rgba(232,93,4,.18);}
+
+  /* ---------- Main ---------- */
+  .main{margin-left:var(--sidebar-w); padding:30px 36px 60px; max-width:1360px;}
+  .topbar{display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px;}
+  .topbar h1{font-size:1.7rem;}
+  .topbar .muted{color:var(--ink-soft); margin-top:4px; font-size:.92rem;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px;
+    font-weight:600; font-size:.85rem; border:1.5px solid var(--line); background:var(--surface); color:var(--blue);
+  }
+  .btn:hover{border-color:var(--blue-light);}
+  .btn svg{width:15px; height:15px;}
+
+  /* ---------- Stat cards ---------- */
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:28px;}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; box-shadow:0 8px 22px rgba(11,39,71,.06); display:flex; align-items:flex-start; gap:14px;
+  }
+  .card .icon{
+    width:42px; height:42px; border-radius:11px; flex:none; display:flex; align-items:center; justify-content:center;
+  }
+  .card .icon svg{width:21px; height:21px;}
+  .card.blue .icon{background:rgba(18,59,109,.10); color:var(--blue);}
+  .card.orange .icon{background:rgba(232,93,4,.10); color:var(--pitch-orange);}
+  .card.green .icon{background:rgba(27,107,69,.10); color:var(--green);}
+  .card.grey .icon{background:#EEF0F2; color:#64748b;}
+  .card .label{font-size:.76rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); font-weight:600;}
+  .card .value{font-family:var(--font-display); font-size:1.55rem; font-weight:700; color:var(--blue-deep); margin-top:3px;}
+
+  /* ---------- Panels / charts / tables ---------- */
+  .panels{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; margin-bottom:28px;}
+  @media (max-width:980px){.panels{grid-template-columns:1fr;}}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:0 8px 22px rgba(11,39,71,.05);}
+  .panel h2{font-size:1.02rem; margin-bottom:4px;}
+  .panel .muted{color:var(--ink-soft); font-size:.82rem; margin-bottom:16px;}
+  .chart-wrap{position:relative; height:230px;}
+  .empty-note{color:var(--ink-soft); font-size:.85rem; padding:30px 0; text-align:center;}
+
+  .table-panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:0 8px 22px rgba(11,39,71,.05); overflow:hidden; margin-bottom:24px;}
+  .table-panel-head{display:flex; justify-content:space-between; align-items:center; padding:18px 22px; border-bottom:1px solid var(--line);}
+  .table-panel-head h2{font-size:1.02rem;}
+  .table-panel-head a{font-size:.82rem; font-weight:600; color:var(--blue-light);}
+  table{width:100%; border-collapse:collapse;}
+  th,td{padding:13px 22px; text-align:left; font-size:.87rem;}
+  th{background:var(--paper); color:var(--ink-soft); font-weight:600; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--line);}
+  tbody tr:not(:last-child) td{border-bottom:1px solid var(--line);}
+  .name-cell{display:flex; align-items:center; gap:10px;}
+  .name-cell .initials{
+    width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,var(--blue-light),var(--green));
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; flex:none;
+  }
+  .pill{display:inline-block; padding:4px 11px; border-radius:999px; font-size:.72rem; font-weight:700;}
+  .pill.active,.pill.success{background:rgba(27,107,69,.12); color:var(--green);}
+  .pill.pending_payment,.pill.pending{background:rgba(232,93,4,.12); color:var(--pitch-orange);}
+  .pill.suspended,.pill.failed,.pill.cancelled{background:#EEF0F2; color:#64748b;}
+  .mono{font-family:ui-monospace,Menlo,monospace; font-size:.82rem; color:var(--blue);}
+
+  .two-tables{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:980px){.two-tables{grid-template-columns:1fr;}}
+
+  .hamburger{display:none; position:fixed; top:16px; left:16px; z-index:60; width:42px; height:42px; border-radius:10px; background:var(--blue-deep); border:none; color:#fff; align-items:center; justify-content:center;}
+  @media (max-width:860px){
+    .sidebar{transform:translateX(-100%);}
+    .sidebar.open{transform:translateX(0);}
+    .main{margin-left:0; padding-top:76px;}
+    .hamburger{display:flex;}
+  }
+</style>
+</head>
+<body>
+
+  <button class="hamburger" id="sidebarToggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+  </button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="31" fill="#123B6D"/>
+        <circle cx="32" cy="32" r="31" fill="none" stroke="#FFA733" stroke-width="2"/>
+        <path d="M32 10c5 6 8 10 8 15a8 8 0 0 1-16 0c0-5 3-9 8-15z" fill="#E85D04"/>
+        <path d="M32 30c6 4 10 9 10 15a10 10 0 0 1-20 0c0-6 4-11 10-15z" fill="#1B6B45"/>
+        <rect x="29.2" y="27" width="5.6" height="24" rx="1.5" fill="#FBF9F4"/>
+        <rect x="21" y="35.5" width="22" height="5" rx="1.5" fill="#FBF9F4"/>
+      </svg>
+      <div>Manyatta Kisumu<small>DIOCESE YOUTH · ADMIN</small></div>
+    </div>
+
+    <div class="nav-group-label">Overview</div>
+    <nav>
+      <a href="{% url 'dashboard-page' %}" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+
+    <div class="nav-group-label">Manage</div>
+    <nav>
+      <a href="/admin/registration/memberregistration/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Members
+      </a>
+      <a href="/admin/payments/payment/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20" stroke-linecap="round"/></svg>
+        Payments
+      </a>
+      <a href="/admin/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        Full Admin
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="sidebar-user">
+        <div class="avatar">{{ request.user.username|slice:":2"|upper }}</div>
+        <div class="who">{{ request.user.get_full_name|default:request.user.username }}<br><small>Committee staff</small></div>
+      </div>
+      <a href="/admin/logout/" class="logout-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Log out
+      </a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Committee Dashboard</h1>
+        <p class="muted">Membership &amp; payments overview for Manyatta Kisumu Diocese Youth.</p>
+      </div>
+      <a href="{% url 'dashboard-page' %}" class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Refresh
+      </a>
+    </div>
+
+    <div class="cards">
+      <div class="card blue">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div><div class="label">Total Members</div><div class="value">{{ stats.total_members }}</div></div>
+      </div>
+      <div class="card green">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <div><div class="label">Active Members</div><div class="value">{{ stats.active_members }}</div></div>
+      </div>
+      <div class="card orange">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><div class="label">Pending Payment</div><div class="value">{{ stats.pending_payment }}</div></div>
+      </div>
+      <div class="card green">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div><div class="label">Total Collected</div><div class="value">KES {{ stats.total_collected|floatformat:0 }}</div></div>
+      </div>
+      <div class="card grey">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
+        <div><div class="label">Failed Payments</div><div class="value">{{ stats.failed_payments_count }}</div></div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <h2>Collected by Provider</h2>
+        <p class="muted">Successful payments only, in KES</p>
+        {% if stats.provider_labels %}
+        <div class="chart-wrap"><canvas id="providerChart"></canvas></div>
+        {% else %}
+        <p class="empty-note">No successful payments yet.</p>
+        {% endif %}
+      </div>
+      <div class="panel">
+        <h2>Members by Category</h2>
+        <p class="muted">Ordinary · Student · Associate</p>
+        {% if stats.category_labels %}
+        <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+        {% else %}
+        <p class="empty-note">No registrations yet.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="two-tables">
+      <div class="table-panel">
+        <div class="table-panel-head">
+          <h2>Recent Members</h2>
+          <a href="/admin/registration/memberregistration/">View all →</a>
+        </div>
+        <table>
+          <thead><tr><th>Name</th><th>Category</th><th>Status</th><th>Member No.</th></tr></thead>
+          <tbody>
+            {% for m in stats.recent_members %}
+            <tr>
+              <td>
+                <div class="name-cell">
+                  <div class="initials">{{ m.full_name|slice:":2"|upper }}</div>
+                  <div>{{ m.full_name }}<br><span class="muted" style="font-size:.76rem;">{{ m.parish }}</span></div>
+                </div>
+              </td>
+              <td>{{ m.membership_category|title }}</td>
+              <td><span class="pill {{ m.status }}">{{ m.status|cut:"_"|default:m.status }}</span></td>
+              <td>{% if m.membership_number %}<span class="mono">{{ m.membership_number }}</span>{% else %}—{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="empty-note">No registrations yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-panel">
+        <div class="table-panel-head">
+          <h2>Recent Payments</h2>
+          <a href="/admin/payments/payment/">View all →</a>
+        </div>
+        <table>
+          <thead><tr><th>Member</th><th>Provider</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            {% for p in stats.recent_payments %}
+            <tr>
+              <td>{{ p.registration__full_name }}</td>
+              <td>{{ p.provider|upper }}</td>
+              <td>{{ p.currency }} {{ p.amount|floatformat:0 }}</td>
+              <td><span class="pill {{ p.status }}">{{ p.status }}</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="empty-note">No payments yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  {{ stats.provider_labels|json_script:"provider-labels" }}
+  {{ stats.provider_values|json_script:"provider-values" }}
+  {{ stats.category_labels|json_script:"category-labels" }}
+  {{ stats.category_values|json_script:"category-values" }}
+
+  <script>
+    document.getElementById('sidebarToggle').addEventListener('click', function () {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    const brandColors = ['#123B6D', '#E85D04', '#1B6B45', '#FFA733', '#2E6FB0'];
+
+    function readJSON(id) {
+      const el = document.getElementById(id);
+      return el ? JSON.parse(el.textContent) : [];
+    }
+
+    const providerLabels = readJSON('provider-labels');
+    const providerValues = readJSON('provider-values');
+    const categoryLabels = readJSON('category-labels');
+    const categoryValues = readJSON('category-values');
+
+    if (providerLabels.length) {
+      new Chart(document.getElementById('providerChart'), {
+        type: 'bar',
+        data: {
+          labels: providerLabels,
+          datasets: [{ data: providerValues, backgroundColor: brandColors, borderRadius: 8, maxBarThickness: 56 }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, grid: { color: '#EFE9DA' } }, x: { grid: { display: false } } }
+        }
+      });
+    }
+
+    if (categoryLabels.length) {
+      new Chart(document.getElementById('categoryChart'), {
+        type: 'doughnut',
+        data: {
+          labels: categoryLabels,
+          datasets: [{ data: categoryValues, backgroundColor: brandColors, borderWidth: 0 }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } } } },
+          cutout: '65%'
+        }
+      });
+    }
+  </script>
+</body>
+</html>

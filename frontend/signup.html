@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Us — Manyatta Kisumu Diocese Youths</title>
+<meta name="description" content="Register as a member of Manyatta Kisumu Diocese Youths and pay your subscription via M-Pesa.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand">
+        <img src="images/logo.png" alt="Manyatta Kisumu Diocese Youths logo">
+        <span>Manyatta Kisumu Diocese<small>NOMIYA CHURCH</small></span>
+      </a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="team.html">Our Team</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="docs/constitution.pdf" target="_blank" rel="noopener">Constitution</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html" class="nav-cta">Join Us</a>
+      </nav>
+    </div>
+  </header>
+  <div class="pattern-band"></div>
+
+  <section style="padding-top:64px; padding-bottom:80px;">
+    <div class="container">
+      <div class="section-head center">
+        <div class="eyebrow">Membership Registration</div>
+        <h1>Join Manyatta Kisumu Diocese Youths</h1>
+        <p class="muted">Fill in your details, then pay your subscription by M-Pesa &mdash; you'll get an STK push on your phone and your membership number as soon as it's confirmed.</p>
+      </div>
+
+      <form class="form-shell wide" id="signupForm" onsubmit="return false;" novalidate>
+        <div class="progress-steps">
+          <div class="step active">Your Details</div>
+          <div class="step">Subscription Payment</div>
+          <div class="step">Confirmation</div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div id="stepDetails">
+          <h3 class="form-section-title">Section A &middot; Personal Information</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="fullName">Full name (as per ID/Baptism Card)</label>
+              <input type="text" id="fullName" name="fullName" placeholder="e.g. Jane Achieng" required>
+            </div>
+            <div class="field">
+              <label for="nationalId">National ID / Birth Certificate No.</label>
+              <input type="text" id="nationalId" name="nationalId" placeholder="e.g. 34567890" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="dob">Date of birth</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="maritalStatus">Marital status</label>
+              <select id="maritalStatus" name="maritalStatus" required>
+                <option value="">Select</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="07XX XXX XXX" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="postalAddress">Postal address <span class="muted">(optional)</span></label>
+              <input type="text" id="postalAddress" name="postalAddress" placeholder="e.g. P.O. Box 123, Kisumu">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="residence">Residence (Estate/Village)</label>
+              <input type="text" id="residence" name="residence" placeholder="e.g. Manyatta B" required>
+            </div>
+            <div class="field">
+              <label for="occupation">Occupation / Student</label>
+              <input type="text" id="occupation" name="occupation" placeholder="e.g. Student, Tailor, Boda rider" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="institution">Institution <span class="muted">(if student)</span></label>
+            <input type="text" id="institution" name="institution" placeholder="e.g. Kisumu Polytechnic">
+          </div>
+
+          <h3 class="form-section-title">Section B &middot; Church &amp; Youth Details</h3>
+          <div class="field">
+            <label for="parish">Church / Parish</label>
+            <input type="text" id="parish" name="parish" placeholder="e.g. St. Stephen's Manyatta" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="baptismStatus">Baptism status</label>
+              <select id="baptismStatus" name="baptismStatus" required>
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="confirmationStatus">Confirmation status</label>
+              <select id="confirmationStatus" name="confirmationStatus" required>
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="otherRoles">Other church roles <span class="muted">(optional)</span></label>
+              <input type="text" id="otherRoles" name="otherRoles" placeholder="e.g. Choir member">
+            </div>
+            <div class="field">
+              <label for="memberType">Membership category</label>
+              <select id="memberType" name="memberType" required>
+                <option value="">Select</option>
+                <option value="member">Member</option>
+                <option value="leader">Leader</option>
+              </select>
+            </div>
+          </div>
+
+          <h3 class="form-section-title">Section C &middot; Next of Kin / Emergency Contact</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="kinName">Full name</label>
+              <input type="text" id="kinName" name="kinName" placeholder="e.g. John Otieno" required>
+            </div>
+            <div class="field">
+              <label for="kinRelationship">Relationship</label>
+              <input type="text" id="kinRelationship" name="kinRelationship" placeholder="e.g. Parent, Sibling" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="kinPhone">Phone number</label>
+              <input type="tel" id="kinPhone" name="kinPhone" placeholder="07XX XXX XXX" required>
+            </div>
+            <div class="field">
+              <label for="kinAltPhone">Alternative contact <span class="muted">(optional)</span></label>
+              <input type="tel" id="kinAltPhone" name="kinAltPhone" placeholder="07XX XXX XXX">
+            </div>
+          </div>
+
+          <h3 class="form-section-title">Account</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="password">Create password</label>
+              <input type="password" id="password" name="password" placeholder="Minimum 6 characters" minlength="6" required>
+            </div>
+            <div class="field">
+              <label for="confirmPassword">Confirm password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" minlength="6" required>
+            </div>
+          </div>
+
+          <div class="field-hint" style="margin-bottom:16px;">
+            By continuing you agree to abide by the MKDY <a href="docs/constitution.pdf" target="_blank" rel="noopener">Constitution</a> and leadership directives (Section D of the membership form).
+          </div>
+
+          <button type="button" id="toPayment" class="btn btn-primary btn-block">Continue to Payment</button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="stepPayment" style="display:none;">
+          <div class="mpesa-amount-due">
+            <span>Amount due</span>
+            <strong id="amountDue">KES &mdash;</strong>
+          </div>
+
+          <div class="field">
+            <label for="mpesaPhone">M-Pesa phone number</label>
+            <input type="tel" id="mpesaPhone" placeholder="07XX XXX XXX">
+            <div class="field-hint">We'll send a payment prompt straight to this phone &mdash; enter your M-Pesa PIN there to complete payment.</div>
+          </div>
+
+          <div id="stkAlert" class="alert"></div>
+
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <button type="button" id="backToDetails" class="btn btn-outline-dark" style="flex:1;">Back</button>
+            <button type="button" id="sendStkBtn" class="btn btn-green" style="flex:2;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01" stroke-linecap="round"/></svg>
+              Send M-Pesa Prompt
+            </button>
+          </div>
+
+          <p class="field-hint" style="margin-top:14px; text-align:center;">
+            Testing in Safaricom's sandbox? Only their official test number
+            (<span class="mono-inline">254708374149</span>) will actually receive the prompt.
+          </p>
+        </div>
+
+        <!-- STEP 2b: waiting for confirmation -->
+        <div id="stepWaiting" style="display:none;" class="text-center">
+          <div class="stk-spinner" aria-hidden="true"></div>
+          <h2 style="margin-top:18px;">Check your phone</h2>
+          <p class="muted">Enter your M-Pesa PIN when prompted. This page will update automatically once payment is confirmed.</p>
+          <p class="field-hint" id="waitingNote">Waiting for confirmation&hellip;</p>
+        </div>
+
+        <!-- STEP 3 -->
+        <div id="stepDone" style="display:none;" class="text-center">
+          <div class="pill pill-green" style="margin-bottom:16px;">Payment Confirmed</div>
+          <h2>Welcome, <span id="memberDisplayName">Member</span>! &#127881;</h2>
+          <p class="muted">Your M-Pesa payment was received and your membership number has been issued. Keep it safe &mdash; you'll use it for events, welfare requests and voting at AGMs.</p>
+          <div class="badge-num" id="membershipNumber">MKDY-0000</div>
+          <a href="index.html" class="btn btn-outline-dark" style="margin-top:18px;">Back to Home</a>
+        </div>
+      </form>
+
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Manyatta Kisumu Diocese Youths</h4>
+          <p class="muted" style="max-width:34ch;">A community of young people growing in faith, service and purpose across Kisumu Diocese.<br><em>Motto: Strengthened Through Christ</em></p>
+          <div class="social-row">
+            <a href="https://www.facebook.com/groups/639298412896199" target="_blank" rel="noopener" aria-label="Facebook Group"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 2.1.25 2.83.53a5.7 5.7 0 0 1 2.06 1.34 5.7 5.7 0 0 1 1.34 2.06c.28.72.48 1.66.53 2.83.06 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 2.1-.53 2.83a5.7 5.7 0 0 1-1.34 2.06 5.7 5.7 0 0 1-2.06 1.34c-.72.28-1.66.48-2.83.53-1.25.06-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-2.1-.25-2.83-.53a5.7 5.7 0 0 1-2.06-1.34 5.7 5.7 0 0 1-1.34-2.06c-.28-.72-.48-1.66-.53-2.83C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-2.1.53-2.83A5.7 5.7 0 0 1 4.14 2.26 5.7 5.7 0 0 1 6.2.92c.72-.28 1.66-.48 2.83-.53C10.28 2.2 10.68 2.2 12 2.2zm6.96 1.98"/></svg></a>
+            <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.36A10 10 0 1 0 12 2zm0 18.2a8.16 8.16 0 0 1-4.17-1.14l-.3-.18-3.1.84.83-3.02-.19-.31A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="testimonials.html">Testimonials</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Membership</h4>
+          <ul class="footer-links">
+            <li><a href="signup.html">Join / Register</a></li>
+            <li><a href="login.html">Member Login</a></li>
+            <li><a href="docs/constitution.pdf" target="_blank" rel="noopener">Download Constitution (PDF)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li class="muted">Nomiya Church, Manyatta, Kisumu Diocese</li>
+            <li><a href="mailto:manyattakisumudioceseyouths@gmail.com">manyattakisumudioceseyouths@gmail.com</a></li>
+            <li class="muted">0769 247 994</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year"></span> Manyatta Kisumu Diocese Youths. All rights reserved.</span>
+        <span>Built with faith, for the youth.</span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js?v=20260901"></script>
+</body>
+</html>
