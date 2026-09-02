@@ -279,6 +279,13 @@ section{ padding:74px 0; }
   background:var(--pitch-orange); color:#fff; font-size:.72rem; font-weight:700;
   box-shadow:0 4px 10px rgba(232,93,4,.35);
 }
+.welfare-note{
+  padding:13px 16px;
+  margin:18px 0;
+  border-left:3px solid var(--jungle-green);
+  background:rgba(27,107,69,.08);
+  color:var(--jungle-green-deep);
+}
 
 .pill{
   display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.05em;
@@ -297,8 +304,33 @@ section{ padding:74px 0; }
   color:#fff; font-family:var(--font-display); font-weight:700; font-size:1.6rem;
   border:4px solid var(--surface); box-shadow:var(--shadow);
 }
+.team-photo-image{ object-fit:cover; object-position:center 20%; }
 .team-card h3{ margin-bottom:2px; font-size:1.05rem; }
 .team-role{ color:var(--pitch-orange); font-weight:600; font-size:.85rem; margin-bottom:10px; }
+.management-section{ position:relative; overflow:hidden; }
+.management-section::before{ content:""; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,var(--jungle-green),var(--pitch-orange),var(--blue)); }
+.management-heading{ max-width:700px; margin:0 auto 32px; padding:26px 28px 0; text-align:center; }
+.management-heading .eyebrow{ color:var(--jungle-green); }
+.management-heading .eyebrow::before{ background:var(--jungle-green); }
+.management-heading h2{ font-size:clamp(2rem,4vw,3rem); margin-bottom:10px; }
+.management-heading p{ max-width:54ch; margin:0 auto; }
+.leadership-directory{ align-items:stretch; }
+.leadership-directory .team-card{ border-top:3px solid transparent; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.leadership-directory .team-card:hover{ transform:translateY(-5px); border-top-color:var(--pitch-orange); box-shadow:0 16px 34px rgba(11,39,71,.16); }
+.leadership-directory .team-photo{ width:148px; height:148px; }
+.leadership-directory .team-role{ letter-spacing:.02em; }
+.leadership-directory .member-id{ display:inline-block; }
+
+/* A visual committee preview keeps the homepage connected to the team directory. */
+.leadership-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+.leadership-card{ position:relative; min-width:0; aspect-ratio:3/4; overflow:hidden; border-radius:var(--radius-sm); background:var(--blue-deep); box-shadow:var(--shadow); }
+.leadership-card img{ width:100%; height:100%; object-fit:cover; object-position:center 20%; transition:transform .3s ease; }
+.leadership-card::after{ content:""; position:absolute; inset:35% 0 0; background:linear-gradient(transparent,rgba(11,39,71,.9)); }
+.leadership-card span{ position:absolute; z-index:1; left:12px; right:12px; bottom:12px; color:#fff; font-family:var(--font-display); font-size:.82rem; line-height:1.2; }
+.leadership-card:hover img{ transform:scale(1.06); }
+.leadership-link{ margin-top:28px; }
+@media (max-width:900px){ .leadership-grid{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:560px){ .leadership-grid{ grid-template-columns:repeat(2,1fr); } }
 
 /* ---------- Gallery ---------- */
 .gallery-grid{
