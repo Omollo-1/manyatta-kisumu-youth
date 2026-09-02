@@ -2,10 +2,9 @@
    Manyatta Kisumu Diocese Youth — Shared Front-end Logic
    ========================================================= */
 
-// Change these if the backend services run somewhere other than localhost
-// (e.g. deployed URLs). signup.html and login.html call these directly.
-var DJANGO_API_BASE = 'http://127.0.0.1:8001';
-var NODE_API_BASE = 'http://127.0.0.1:5001';
+// The public backend URLs used by login, registration, and payments.
+var DJANGO_API_BASE = 'https://manyatta-kisumu-youth.onrender.com';
+var NODE_API_BASE = 'https://manyatta-kisumu-youth-1.onrender.com';
 
 document.addEventListener('DOMContentLoaded', function () {
 

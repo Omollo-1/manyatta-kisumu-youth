@@ -54,7 +54,7 @@ hosting. Just upload the `frontend/` folder contents (no build step).
 
 The Django API base URL is set at the top of `js/main.js`:
 ```js
-var DJANGO_API_BASE = 'http://localhost:8001';
+var DJANGO_API_BASE = 'https://manyatta-kisumu-youth.onrender.com';
 ```
 Change this if you deploy the backend elsewhere.
 
@@ -87,7 +87,7 @@ Django — so an account created at signup can immediately be used to log in.
 The Node API base URL is set at the top of `js/main.js` alongside the
 Django one:
 ```js
-var NODE_API_BASE = 'http://localhost:5001';
+var NODE_API_BASE = 'https://manyatta-kisumu-youth-1.onrender.com';
 ```
 
 ## Payment methods
