@@ -1,7 +1,7 @@
-/* =========================================================
+/*
    Manyatta Kisumu Diocese Youth — Master Stylesheet
    Palette: Blue / Pitch Orange / Orange / Jungle Green
-   ========================================================= */
+    */
 
 :root{
   --blue: #123B6D;
@@ -74,7 +74,7 @@ button{ font-family:var(--font-body); cursor:pointer; }
   display:inline-block;
 }
 
-/* ---------- Signature pattern band (kitenge-inspired diamonds) ---------- */
+/*  Signature pattern band (kitenge-inspired diamonds)  */
 .pattern-band{
   height:14px;
   width:100%;
@@ -88,7 +88,7 @@ button{ font-family:var(--font-body); cursor:pointer; }
   background-color: var(--orange);
 }
 
-/* ---------- Buttons ---------- */
+/*Buttons */
 .btn{
   display:inline-flex;
   align-items:center;
@@ -113,7 +113,7 @@ button{ font-family:var(--font-body); cursor:pointer; }
 .btn-block{ width:100%; }
 .btn-sm{ padding:9px 18px; font-size:.85rem; }
 
-/* ---------- Navbar ---------- */
+/*Navbar  */
 .site-header{
   position:sticky; top:0; left:0; right:0;
   z-index:100;
@@ -189,7 +189,7 @@ button{ font-family:var(--font-body); cursor:pointer; }
   .hamburger{ display:flex; }
 }
 
-/* ---------- Hero ---------- */
+/*Hero*/
 .hero{
   position:relative;
   background:

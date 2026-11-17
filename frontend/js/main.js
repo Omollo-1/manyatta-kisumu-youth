@@ -1,18 +1,19 @@
-/* =========================================================
+/*
    Manyatta Kisumu Diocese Youth — Shared Front-end Logic
-   ========================================================= */
+   */
 
-// The public backend URLs used by login, registration, and payments.
-var DJANGO_API_BASE = 'https://manyatta-kisumu-youth.onrender.com';
-var NODE_API_BASE = 'https://manyatta-kisumu-youth-1.onrender.com';
+// Use local services when the site is served locally; hosted pages use production.
+var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+var DJANGO_API_BASE = isLocal ? 'http://localhost:8001' : 'https://manyatta-kisumu-youth.onrender.com';
+var NODE_API_BASE = isLocal ? 'http://localhost:5001' : 'https://manyatta-kisumu-youth-1.onrender.com';
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ---------- Footer year ---------- */
+  /* Footer year */
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- Hamburger nav ---------- */
+  /* Hamburger nav */
   var burger = document.querySelector('.hamburger');
   var navLinks = document.querySelector('.nav-links');
   if (burger && navLinks) {
@@ -29,14 +30,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------- Mark active nav link ---------- */
+  /* Mark active nav link*/
   var here = (window.location.pathname.split('/').pop() || 'index.html');
   document.querySelectorAll('.nav-links a[href]').forEach(function (a) {
     var href = a.getAttribute('href');
     if (href === here) a.classList.add('active');
   });
 
-  /* ---------- Gallery lightbox ---------- */
+  /*Gallery lightbox  */
   var lightbox = document.getElementById('lightbox');
   if (lightbox) {
     var lbImg = lightbox.querySelector('img');
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------- Login / Signup tab switch (login.html) ---------- */
+  /* Login / Signup tab switch (login.html)*/
   var tabButtons = document.querySelectorAll('.form-tabs button');
   if (tabButtons.length) {
     tabButtons.forEach(function (btn) {
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------- Real member login (login.html) ---------- */
+  /* Real member login (login.html)*/
   var loginForm = document.getElementById('loginForm');
   if (loginForm) {
     var loginAlert = document.getElementById('loginAlert');
@@ -136,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------- Membership signup + real M-Pesa payment (signup.html) ---------- */
+  /* Membership signup + real M-Pesa payment (signup.html) */
   var signupForm = document.getElementById('signupForm');
   if (signupForm) {
     var steps = document.querySelectorAll('.progress-steps .step');
